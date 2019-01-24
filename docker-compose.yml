@@ -1,0 +1,23 @@
+version: "3"
+services:
+  sqler:
+    image: dalongrong/sqler:latest
+    environment:
+    - "DSN=test:test@tcp(db:3306)/test"
+    - "CONFIG=/hcl/*.hcl"
+    ports:
+    - "3678:3678"
+    - "8025:8025"
+    volumes:
+    - ./hcl:/hcl
+    depends_on:
+    - db 
+    links:
+    - db
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
